@@ -1,4 +1,6 @@
 ﻿using Confluent.Kafka;
+using KafkaProducer;
+using Newtonsoft.Json;
 
 var config = new ConsumerConfig
 {
@@ -17,6 +19,14 @@ using (var consumer = new ConsumerBuilder<Null, string>(config).Build())
         {
             var response = consumer.Consume();
             var message = response.Message;
+            //if (message.Value is not null)
+            //{
+            //  var person =  JsonConvert.DeserializeObject<Person>(message.Value);
+
+            //    Console.WriteLine(person.Name);
+            //    Console.WriteLine(person.Age);
+            //}
+
             if (response is not null && !string.IsNullOrEmpty(message.Value))
             {
                 Console.WriteLine($"Message: {message.Value}");
